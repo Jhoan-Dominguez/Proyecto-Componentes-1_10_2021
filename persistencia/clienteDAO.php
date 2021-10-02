@@ -27,6 +27,10 @@ values (
 
 )";
 }
+
+public function consultarCliente($id_usuario) {
+    return "select * from cliente where cliente.id_usuario = '".$id_usuario."';";
+}
     
 public function consultarTodos() {
     return "select * from cliente order by cliente.id_cliente asc ";
