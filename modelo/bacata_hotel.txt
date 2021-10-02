@@ -15,7 +15,7 @@ direccion_hotel varchar(50) NOT NULL,
 telefono_hotel int,
 id_categoria_hotel int NOT NULL,
 PRIMARY KEY(id_hotel),
-FOREIGN KEY (id_categoria_hotel) REFERENCES usuario(id_categoria_hotel)
+FOREIGN KEY (id_categoria_hotel) REFERENCES categoria_hotel(id_categoria_hotel)
 );
 
 CREATE TABLE usuario (
