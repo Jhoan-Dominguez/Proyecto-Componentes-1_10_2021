@@ -1,0 +1,105 @@
+CREATE DATABASE bacata;
+USE bacata;
+
+CREATE TABLE categoria_hotel (
+id_categoriahotel int NOT NULL,
+fecha_categoria date NOT NULL,
+PRIMARY KEY(id_categoriahotel)
+);
+
+CREATE TABLE hotel (
+id_hotel int NOT NULL,
+nombre_hotel varchar(50) NOT NULL,
+direccion_hotel varchar(50) NOT NULL,
+telefono_hotel int,
+id_categoriahotel int NOT NULL,
+PRIMARY KEY(id_hotel)
+);
+
+CREATE TABLE usuario (
+id_usuario int NOT NULL,
+password_usuario varchar(50) NOT NULL,
+estado_usuario boolean NOT NULL,
+PRIMARY KEY(id_usuario)
+);
+
+CREATE TABLE cliente (
+id_cliente int NOT NULL,
+nombre_cliente varchar(50) NOT NULL,
+direccion_cliente varchar(50) NOT NULL,
+telefono_cliente int,
+id_usuario int NOT NULL,
+PRIMARY KEY(id_cliente),
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
+
+CREATE TABLE tipo_habitacion (
+id_tipo_habitacion int NOT NULL,
+categoria_tipo_habitacion varchar(50) NOT NULL,
+PRIMARY KEY(id_tipo_habitacion)
+);
+
+CREATE TABLE habitacion (
+id_habitacion int NOT NULL,
+numero_camas_habitacion int NOT NULL,
+numero_baños int NOT NULL,
+precio_habitacion int NOT NULL,
+PRIMARY KEY(id_habitacion)
+);
+
+CREATE TABLE reserva_habitacion (
+id_habitacion int NOT NULL,
+id_reserva_habitacion int NOT NULL,
+id_reserva int NOT NULL,
+cant_reserva_habitacion int NOT NULL,
+precio_reserva_habitacion int NOT NULL,
+PRIMARY KEY(id_habitacion, id_reserva_habitacion, id_reserva)
+);
+
+CREATE TABLE servicio (
+id_servicio int NOT NULL,
+nombre_servicio varchar(50) NOT NULL,
+precio_servicio int NOT NULL,
+PRIMARY KEY(id_servicio)
+);
+
+CREATE TABLE servicio_reserva (
+id_servicio_reserva int NOT NULL,
+id_reserva int NOT NULL,
+id_servicio int NOT NULL,
+precio_servicio_reserva int NOT NULL,
+PRIMARY KEY(id_reserva, id_servicio_reserva, id_servicio)
+);
+
+CREATE TABLE huesped (
+id_huesped int NOT NULL,
+id_reserva int NOT NULL,
+nombre_huesped varchar(50) NOT NULL,
+apellido_huesped varchar(50) NOT NULL,
+edad_huesped int NOT NULL,
+PRIMARY KEY(id_huesped, id_reserva)
+);
+
+CREATE TABLE reserva (
+id_reserva int NOT NULL,
+id_usuario int NOT NULL,
+id_hotel int NOT NULL,
+fecha_reserva date,
+fecha_inicio date,
+fecha_final  date,
+PRIMARY KEY(id_reserva),
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel)
+);
+
+CREATE TABLE factura (
+id_reserva int NOT NULL,
+id_factura int NOT NULL,
+id_usuario int NOT NULL,
+fecha_pago date,
+precio_total int,
+reserva_precio  int,
+servicios_total int,
+PRIMARY KEY(id_factura, id_reserva),
+FOREIGN KEY (id_usuario) REFERENCES reserva(id_usuario)
+);
