@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/clienteDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/clienteDAO.php";
 
 class cliente {
     
@@ -55,13 +55,13 @@ private $clienteDAO;
     
     public function cliente( $id_cliente="",$nombre_cliente="",$direccion_cliente="",$telefono_cliente="",$id_usuario="" ) {
         
-$this -> id_cliente = $id_cliente;
-$this -> nombre_cliente = $nombre_cliente;
-$this -> direccion_cliente = $direccion_cliente;
-$this -> telefono_cliente = $telefono_cliente;
-$this -> id_usuario = $id_usuario;
-$this -> conexion = new conexion();
-$this -> clienteDAO = new clienteDAO($this->id_cliente,$this->nombre_cliente,$this->direccion_cliente,$this->telefono_cliente,$this->id_usuario);
+        $this -> id_cliente = $id_cliente;
+        $this -> nombre_cliente = $nombre_cliente;
+        $this -> direccion_cliente = $direccion_cliente;
+        $this -> telefono_cliente = $telefono_cliente;
+        $this -> id_usuario = $id_usuario;
+        $this -> conexion = new conexion();
+        $this -> clienteDAO = new clienteDAO($this->id_cliente,$this->nombre_cliente,$this->direccion_cliente,$this->telefono_cliente,$this->id_usuario);
     }
     
     public function consultarTodos() {
@@ -76,6 +76,12 @@ $this -> clienteDAO = new clienteDAO($this->id_cliente,$this->nombre_cliente,$th
         return $valoresRetornar;
     }
     
+    public function updateInformation($id_usuario, $nombre_cliente, $direccion_cliente,$telefono_cliente){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> clienteDAO -> updateInformation($id_usuario, $nombre_cliente, $direccion_cliente,$telefono_cliente));
+        $this -> conexion -> cerrar();
+    }
+
     public function consultarTotalFilas() {
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> clienteDAO -> consultarTotalFilas());

@@ -1,7 +1,5 @@
 package com.example.proyectobacata;
 
-import static com.android.volley.Request.*;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -21,18 +19,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.proyectobacata.administrador.viewPrincipalAdmin;
 import com.example.proyectobacata.cliente.viewPrincipalCliente;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     EditText TxtCorreo, TxtPassword;
     String usuario, password;
-    Button BtnIniciarSesion;
+    Button BtnIniciarSesion, btnRecuperarPassword, btnCrearCuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TxtCorreo = (EditText)findViewById(R.id.TxtCorreo);
         TxtPassword = (EditText)findViewById(R.id.TxtPassword);
-        BtnIniciarSesion = (Button)findViewById(R.id.BtnIniciarSesion);
+        BtnIniciarSesion = (Button)findViewById(R.id.btnIniciarSesion);
+        btnRecuperarPassword = (Button)findViewById(R.id.btnRecuperarPassword);
+        btnCrearCuenta = (Button)findViewById(R.id.btnCrearCuenta);
 
         recuperarPreferencias();
 
@@ -50,13 +52,44 @@ public class MainActivity extends AppCompatActivity {
                 usuario=TxtCorreo.getText().toString();
                 password=TxtPassword.getText().toString();
                 if(!usuario.isEmpty() && !password.isEmpty()){
-                    iniciarSesion("http://192.168.0.1/aplicaciones/Componentes-Proyecto/Presentacion/inicioSesion.php");
+                    iniciarSesion("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/inicioSesion.php");
                 }
                 else{
                     Toast.makeText(MainActivity.this, "no se permiten campos vacios", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        BtnIniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usuario=TxtCorreo.getText().toString();
+                password=TxtPassword.getText().toString();
+                if(!usuario.isEmpty() && !password.isEmpty()){
+                    iniciarSesion("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/inicioSesion.php");
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "no se permiten campos vacios", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnRecuperarPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, recuperarPassword.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCrearCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, crearCuenta.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -69,12 +102,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // En este apartado se programa lo que deseamos hacer en caso de no haber errores
 
-                        if(response.equals("ERROR 2")) {
+                        if(response.equals("ERROR 2") || response.equals("ERROR 1")) {
                             Toast.makeText(MainActivity.this, "No existe ese registro.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Inicio de Sesion exitoso.", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, viewPrincipalCliente.class);
-                            startActivity(intent);
+                        }else {
+                            guardarPreferencias();
+                            if(response.equals("2")){
+                                Toast.makeText(MainActivity.this, "Inicio Exitoso", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(MainActivity.this, viewPrincipalAdmin.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(MainActivity.this, "Inicio Exitoso", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(MainActivity.this, viewPrincipalCliente.class);
+                                intent.putExtra("Id", response);
+                                startActivity(intent);
+                            }
+
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -98,6 +140,38 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         requestQueue.add(stringRequest);
+    }
+
+    public void buscarUsuario(String URL){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    System.out.println("1");
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        String Name = jsonObject.getString("correo");
+                        int Id = Integer.parseInt(jsonObject.getString("id_usuario"));
+
+                        if(Id == 2){
+                            Intent intent = new Intent(MainActivity.this, viewPrincipalCliente.class);
+                            intent.putExtra("Id", Id);
+                            intent.putExtra("Name", Name);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
     }
 
     private  void guardarPreferencias(){

@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/usuarioDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/usuarioDAO.php";
 
 class usuario {
     
@@ -46,12 +46,12 @@ private $usuarioDAO;
     
     public function usuario( $id_usuario="",$correo="",$password_usuario="",$estado_usuario="" ) {
         
-$this -> id_usuario = $id_usuario;
-$this -> correo = $correo;
-$this -> password_usuario = $password_usuario;
-$this -> estado_usuario = $estado_usuario;
-$this -> conexion = new conexion();
-$this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->correo,$this->password_usuario,$this->estado_usuario);
+        $this -> id_usuario = $id_usuario;
+        $this -> correo = $correo;
+        $this -> password_usuario = $password_usuario;
+        $this -> estado_usuario = $estado_usuario;
+        $this -> conexion = new conexion();
+        $this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->correo,$this->password_usuario,$this->estado_usuario);
     }
     
     public function consultarTodos() {
@@ -76,6 +76,36 @@ $this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->correo,$this->pass
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;
+    }
+
+    public function datosUsuarioCliente($id_usuario){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> datosUsuarioCliente($id_usuario));
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, array( 
+                'nombre_cliente' => $resultado[5],
+                'direccion_cliente' => $resultado[6],
+                'telefono_cliente' => $resultado[7],
+                'correo' => $resultado[1],
+                'password_usuario' => $resultado[2], 
+            ));
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar[0];
+    }
+
+    public function updateInformation($id_usuario, $correo, $password){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> updateInformation($id_usuario, $correo, $password));        
+        $this -> conexion -> cerrar();
+    }
+
+    public function restablecerPassword($id_usuario, $correo, $newPass){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> restablecerPassword($id_usuario, $correo, $newPass));        
+        $this -> conexion -> cerrar();
     }
 
     public function consultarTotalFilas() {

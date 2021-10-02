@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.proyectobacata">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -12,6 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoBacata">
+        <activity
+            android:name=".cliente.viewPrincipalCliente"
+            android:exported="true" />
+        <activity
+            android:name=".crearCuenta"
+            android:exported="true" />
+        <activity
+            android:name=".recuperarPassword"
+            android:exported="true" />
         <activity
             android:name=".administrador.verHabitaciones"
             android:exported="true" />
@@ -32,9 +42,6 @@
             android:exported="true" />
         <activity
             android:name=".cliente.hacerReserva"
-            android:exported="true" />
-        <activity
-            android:name=".cliente.viewPrincipalCliente"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

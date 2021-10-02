@@ -3,9 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_crear_cuenta.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/activity_hacer_reserva.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_perfil.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/activity_recuperar_password.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/activity_ver_clientes.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/layout/activity_ver_habitaciones.xml" value="0.23324275362318841" />
+        <entry key="app/src/main/res/layout/activity_view_principal.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/activity_view_principal2.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/activity_view_principal_admin.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/activity_view_principal_cliente.xml" value="0.21829710144927536" />
+        <entry key="app/src/main/res/layout/activity_view_principal_cliente2.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/content_view_principal.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.23324275362318841" />
       </map>

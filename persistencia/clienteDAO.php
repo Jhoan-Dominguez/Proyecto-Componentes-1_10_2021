@@ -16,16 +16,25 @@ $this -> telefono_cliente = $telefono_cliente;
 $this -> id_usuario = $id_usuario;
 }
 
+
+
 public function crear() {
 return "
 insert into cliente (nombre_cliente ,direccion_cliente,telefono_cliente,id_usuario)
 values (
  '" .$this -> nombre_cliente . "',
  '" .$this -> direccion_cliente. "',
- '" .$this -> telefono_cliente. "',
- '" .$this -> id_usuario. "' 
+ " .$this -> telefono_cliente. ",
+ " .$this -> id_usuario. "
 
 )";
+}
+
+public function updateInformation($id_usuario, $nombre_cliente, $direccion_cliente,$telefono_cliente){
+    return "update cliente set cliente.nombre_cliente = '".$nombre_cliente."', 
+            cliente.direccion_cliente = '".$direccion_cliente."',
+            cliente.telefono_cliente = ".$telefono_cliente."
+            where cliente.id_usuario = ".$id_usuario;
 }
 
 public function consultarTodos() {
