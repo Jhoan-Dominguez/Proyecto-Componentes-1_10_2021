@@ -66,6 +66,18 @@ $this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->correo,$this->pass
         return $valoresRetornar;
     }
     
+    public function buscarUsuario($correo, $password){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> buscarUsuario($correo, $password));
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, new usuario( $resultado[0],$resultado[1],$resultado[2],$resultado[3] ));
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar;
+    }
+
     public function consultarTotalFilas() {
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> usuarioDAO -> consultarTotalFilas());
