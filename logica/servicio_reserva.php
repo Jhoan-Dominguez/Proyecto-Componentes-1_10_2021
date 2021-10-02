@@ -46,12 +46,12 @@ private $servicio_reservaDAO;
     
     public function servicio_reserva( $id_servicio_reserva="",$id_reserva="",$id_servicio="",$precio_servicio_reserva="" ) {
         
-        $this -> id_servicio_reserva = $id_servicio_reserva;
-        $this -> id_reserva = $id_reserva;
-        $this -> id_servicio = $id_servicio;
-        $this -> precio_servicio_reserva = $precio_servicio_reserva;
-        $this -> conexion = new conexion();
-        $this -> servicio_reservaDAO = new servicio_reservaDAO($this->id_servicio_reserva,$this->id_reserva,$this->id_servicio,$this->precio_servicio_reserva);
+$this -> id_servicio_reserva = $id_servicio_reserva;
+$this -> id_reserva = $id_reserva;
+$this -> id_servicio = $id_servicio;
+$this -> precio_servicio_reserva = $precio_servicio_reserva;
+$this -> conexion = new conexion();
+$this -> servicio_reservaDAO = new servicio_reservaDAO($this->id_servicio_reserva,$this->id_reserva,$this->id_servicio,$this->precio_servicio_reserva);
     }
     
     public function consultarTodos() {

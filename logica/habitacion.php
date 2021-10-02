@@ -7,7 +7,9 @@ class habitacion {
 private $id_habitacion;
 private $numero_camas_habitacion;
 private $numero_baños;
+private $estado_habitacion;
 private $precio_habitacion;
+private $id_tipo_habitacion;
 private $conexion;
 private $habitacionDAO;
     
@@ -39,19 +41,37 @@ private $habitacionDAO;
     /**
      * @return
      */
+    public function getestado_habitacion() {
+        return $this -> estado_habitacion;
+    }
+    
+
+    /**
+     * @return
+     */
     public function getprecio_habitacion() {
         return $this -> precio_habitacion;
     }
     
+
+    /**
+     * @return
+     */
+    public function getid_tipo_habitacion() {
+        return $this -> id_tipo_habitacion;
+    }
     
-    public function habitacion( $id_habitacion="",$numero_camas_habitacion="",$numero_baños="",$precio_habitacion="" ) {
+    
+    public function habitacion( $id_habitacion="",$numero_camas_habitacion="",$numero_baños="",$estado_habitacion="",$precio_habitacion="",$id_tipo_habitacion="" ) {
         
-        $this -> id_habitacion = $id_habitacion;
-        $this -> numero_camas_habitacion = $numero_camas_habitacion;
-        $this -> numero_baños = $numero_baños;
-        $this -> precio_habitacion = $precio_habitacion;
-        $this -> conexion = new conexion();
-        $this -> habitacionDAO = new habitacionDAO($this->id_habitacion,$this->numero_camas_habitacion,$this->numero_baños,$this->precio_habitacion);
+$this -> id_habitacion = $id_habitacion;
+$this -> numero_camas_habitacion = $numero_camas_habitacion;
+$this -> numero_baños = $numero_baños;
+$this -> estado_habitacion = $estado_habitacion;
+$this -> precio_habitacion = $precio_habitacion;
+$this -> id_tipo_habitacion = $id_tipo_habitacion;
+$this -> conexion = new conexion();
+$this -> habitacionDAO = new habitacionDAO($this->id_habitacion,$this->numero_camas_habitacion,$this->numero_baños,$this->estado_habitacion,$this->precio_habitacion,$this->id_tipo_habitacion);
     }
     
     public function consultarTodos() {
@@ -60,7 +80,7 @@ private $habitacionDAO;
         
         $valoresRetornar = array();
         while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new habitacion( $resultado[0],$resultado[1],$resultado[2],$resultado[3] ));
+            array_push($valoresRetornar, new habitacion( $resultado[0],$resultado[1],$resultado[2],$resultado[3],$resultado[4],$resultado[5] ));
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;

@@ -4,8 +4,8 @@ require_once "persistencia/reserva_habitacionDAO.php";
 
 class reserva_habitacion {
     
-private $id_habitacion;
 private $id_reserva_habitacion;
+private $id_habitacion;
 private $id_reserva;
 private $cant_reserva_habitacion;
 private $precio_reserva_habitacion;
@@ -16,16 +16,16 @@ private $reserva_habitacionDAO;
     /**
      * @return
      */
-    public function getid_habitacion() {
-        return $this -> id_habitacion;
+    public function getid_reserva_habitacion() {
+        return $this -> id_reserva_habitacion;
     }
     
 
     /**
      * @return
      */
-    public function getid_reserva_habitacion() {
-        return $this -> id_reserva_habitacion;
+    public function getid_habitacion() {
+        return $this -> id_habitacion;
     }
     
 
@@ -53,15 +53,15 @@ private $reserva_habitacionDAO;
     }
     
     
-    public function reserva_habitacion( $id_habitacion="",$id_reserva_habitacion="",$id_reserva="",$cant_reserva_habitacion="",$precio_reserva_habitacion="" ) {
+    public function reserva_habitacion( $id_reserva_habitacion="",$id_habitacion="",$id_reserva="",$cant_reserva_habitacion="",$precio_reserva_habitacion="" ) {
         
-$this -> id_habitacion = $id_habitacion;
 $this -> id_reserva_habitacion = $id_reserva_habitacion;
+$this -> id_habitacion = $id_habitacion;
 $this -> id_reserva = $id_reserva;
 $this -> cant_reserva_habitacion = $cant_reserva_habitacion;
 $this -> precio_reserva_habitacion = $precio_reserva_habitacion;
 $this -> conexion = new conexion();
-$this -> reserva_habitacionDAO = new reserva_habitacionDAO($this->id_habitacion,$this->id_reserva_habitacion,$this->id_reserva,$this->cant_reserva_habitacion,$this->precio_reserva_habitacion);
+$this -> reserva_habitacionDAO = new reserva_habitacionDAO($this->id_reserva_habitacion,$this->id_habitacion,$this->id_reserva,$this->cant_reserva_habitacion,$this->precio_reserva_habitacion);
     }
     
     public function consultarTodos() {

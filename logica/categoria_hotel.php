@@ -4,7 +4,8 @@ require_once "persistencia/categoria_hotelDAO.php";
 
 class categoria_hotel {
     
-private $id_categoriahotel;
+private $id_categoria_hotel;
+private $nivel_catetegoria_hotel;
 private $fecha_categoria;
 private $conexion;
 private $categoria_hotelDAO;
@@ -13,8 +14,16 @@ private $categoria_hotelDAO;
     /**
      * @return
      */
-    public function getid_categoriahotel() {
-        return $this -> id_categoriahotel;
+    public function getid_categoria_hotel() {
+        return $this -> id_categoria_hotel;
+    }
+    
+
+    /**
+     * @return
+     */
+    public function getnivel_catetegoria_hotel() {
+        return $this -> nivel_catetegoria_hotel;
     }
     
 
@@ -26,12 +35,13 @@ private $categoria_hotelDAO;
     }
     
     
-    public function categoria_hotel( $id_categoriahotel="",$fecha_categoria="" ) {
+    public function categoria_hotel( $id_categoria_hotel="",$nivel_catetegoria_hotel="",$fecha_categoria="" ) {
         
-        $this -> id_categoriahotel = $id_categoriahotel;
-        $this -> fecha_categoria = $fecha_categoria;
-        $this -> conexion = new conexion();
-        $this -> categoria_hotelDAO = new categoria_hotelDAO($this->id_categoriahotel,$this->fecha_categoria);
+$this -> id_categoria_hotel = $id_categoria_hotel;
+$this -> nivel_catetegoria_hotel = $nivel_catetegoria_hotel;
+$this -> fecha_categoria = $fecha_categoria;
+$this -> conexion = new conexion();
+$this -> categoria_hotelDAO = new categoria_hotelDAO($this->id_categoria_hotel,$this->nivel_catetegoria_hotel,$this->fecha_categoria);
     }
     
     public function consultarTodos() {
@@ -40,7 +50,7 @@ private $categoria_hotelDAO;
         
         $valoresRetornar = array();
         while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new categoria_hotel( $resultado[0],$resultado[1] ));
+            array_push($valoresRetornar, new categoria_hotel( $resultado[0],$resultado[1],$resultado[2] ));
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;

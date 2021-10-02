@@ -8,7 +8,7 @@ private $id_hotel;
 private $nombre_hotel;
 private $direccion_hotel;
 private $telefono_hotel;
-private $id_categoriahotel;
+private $id_categoria_hotel;
 private $conexion;
 private $hotelDAO;
     
@@ -48,20 +48,20 @@ private $hotelDAO;
     /**
      * @return
      */
-    public function getid_categoriahotel() {
-        return $this -> id_categoriahotel;
+    public function getid_categoria_hotel() {
+        return $this -> id_categoria_hotel;
     }
     
     
-    public function hotel( $id_hotel="",$nombre_hotel="",$direccion_hotel="",$telefono_hotel="",$id_categoriahotel="" ) {
+    public function hotel( $id_hotel="",$nombre_hotel="",$direccion_hotel="",$telefono_hotel="",$id_categoria_hotel="" ) {
         
 $this -> id_hotel = $id_hotel;
 $this -> nombre_hotel = $nombre_hotel;
 $this -> direccion_hotel = $direccion_hotel;
 $this -> telefono_hotel = $telefono_hotel;
-$this -> id_categoriahotel = $id_categoriahotel;
+$this -> id_categoria_hotel = $id_categoria_hotel;
 $this -> conexion = new conexion();
-$this -> hotelDAO = new hotelDAO($this->id_hotel,$this->nombre_hotel,$this->direccion_hotel,$this->telefono_hotel,$this->id_categoriahotel);
+$this -> hotelDAO = new hotelDAO($this->id_hotel,$this->nombre_hotel,$this->direccion_hotel,$this->telefono_hotel,$this->id_categoria_hotel);
     }
     
     public function consultarTodos() {

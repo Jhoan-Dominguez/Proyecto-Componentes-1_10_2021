@@ -1,32 +1,30 @@
 <?php
 class usuarioDAO {
-    
+
 private $id_usuario;
+private $correo ;
 private $password_usuario;
 private $estado_usuario;
-    
-public function usuarioDAO( $id_usuario="",$password_usuario="",$estado_usuario="" ) {
-    
+
+public function usuarioDAO( $id_usuario="",$correo ="",$password_usuario="",$estado_usuario="" ) {
+
 $this -> id_usuario = $id_usuario;
+$this -> correo  = $correo ;
 $this -> password_usuario = $password_usuario;
 $this -> estado_usuario = $estado_usuario;
 }
 
 public function crear() {
 return "
-insert into usuario (password_usuario,estado_usuario)
+insert into usuario (correo ,password_usuario,estado_usuario)
 values (
- '" .$this -> password_usuario. "', 
- '" .$this -> estado_usuario. "'
+ '" .$this -> correo . "',
+ '" .$this -> password_usuario. "',
+ '" .$this -> estado_usuario. "' 
 
 )";
 }
 
-public function buscarUsuario($correo, $password){
-    return "select * from usuario where usuario.correo_usuario = '".$correo."' 
-            and usuario.password_usuario = '".$password."' and usuario.estado_usuario = 1 ";
-}
-    
 public function consultarTodos() {
     return "select * from usuario order by usuario.id_usuario asc ";
 }

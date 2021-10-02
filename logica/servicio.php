@@ -37,11 +37,11 @@ private $servicioDAO;
     
     public function servicio( $id_servicio="",$nombre_servicio="",$precio_servicio="" ) {
         
-        $this -> id_servicio = $id_servicio;
-        $this -> nombre_servicio = $nombre_servicio;
-        $this -> precio_servicio = $precio_servicio;
-        $this -> conexion = new conexion();
-        $this -> servicioDAO = new servicioDAO($this->id_servicio,$this->nombre_servicio,$this->precio_servicio);
+$this -> id_servicio = $id_servicio;
+$this -> nombre_servicio = $nombre_servicio;
+$this -> precio_servicio = $precio_servicio;
+$this -> conexion = new conexion();
+$this -> servicioDAO = new servicioDAO($this->id_servicio,$this->nombre_servicio,$this->precio_servicio);
     }
     
     public function consultarTodos() {

@@ -1,3 +1,4 @@
+
 <?php
 require_once "persistencia/conexion.php";
 require_once "persistencia/tipo_habitacionDAO.php";
@@ -5,7 +6,8 @@ require_once "persistencia/tipo_habitacionDAO.php";
 class tipo_habitacion {
     
 private $id_tipo_habitacion;
-private $categoria_tipo_habitacion;
+private $tipoHabitacion;
+private $categoria;
 private $conexion;
 private $tipo_habitacionDAO;
     
@@ -21,17 +23,26 @@ private $tipo_habitacionDAO;
     /**
      * @return
      */
-    public function getcategoria_tipo_habitacion() {
-        return $this -> categoria_tipo_habitacion;
+    public function gettipoHabitacion() {
+        return $this -> tipoHabitacion;
+    }
+    
+
+    /**
+     * @return
+     */
+    public function getcategoria() {
+        return $this -> categoria;
     }
     
     
-    public function tipo_habitacion( $id_tipo_habitacion="",$categoria_tipo_habitacion="" ) {
+    public function tipo_habitacion( $id_tipo_habitacion="",$tipoHabitacion="",$categoria="" ) {
         
-        $this -> id_tipo_habitacion = $id_tipo_habitacion;
-        $this -> categoria_tipo_habitacion = $categoria_tipo_habitacion;
-        $this -> conexion = new conexion();
-        $this -> tipo_habitacionDAO = new tipo_habitacionDAO($this->id_tipo_habitacion,$this->categoria_tipo_habitacion);
+$this -> id_tipo_habitacion = $id_tipo_habitacion;
+$this -> tipoHabitacion = $tipoHabitacion;
+$this -> categoria = $categoria;
+$this -> conexion = new conexion();
+$this -> tipo_habitacionDAO = new tipo_habitacionDAO($this->id_tipo_habitacion,$this->tipoHabitacion,$this->categoria);
     }
     
     public function consultarTodos() {
@@ -40,7 +51,7 @@ private $tipo_habitacionDAO;
         
         $valoresRetornar = array();
         while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new tipo_habitacion( $resultado[0],$resultado[1] ));
+            array_push($valoresRetornar, new tipo_habitacion( $resultado[0],$resultado[1],$resultado[2] ));
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;

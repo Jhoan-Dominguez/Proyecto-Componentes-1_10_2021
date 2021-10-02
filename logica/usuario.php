@@ -5,6 +5,7 @@ require_once "persistencia/usuarioDAO.php";
 class usuario {
     
 private $id_usuario;
+private $correo;
 private $password_usuario;
 private $estado_usuario;
 private $conexion;
@@ -16,6 +17,14 @@ private $usuarioDAO;
      */
     public function getid_usuario() {
         return $this -> id_usuario;
+    }
+    
+
+    /**
+     * @return
+     */
+    public function getcorreo() {
+        return $this -> correo;
     }
     
 
@@ -35,13 +44,14 @@ private $usuarioDAO;
     }
     
     
-    public function usuario( $id_usuario="",$password_usuario="",$estado_usuario="" ) {
+    public function usuario( $id_usuario="",$correo="",$password_usuario="",$estado_usuario="" ) {
         
-        $this -> id_usuario = $id_usuario;
-        $this -> password_usuario = $password_usuario;
-        $this -> estado_usuario = $estado_usuario;
-        $this -> conexion = new conexion();
-        $this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->password_usuario,$this->estado_usuario);
+$this -> id_usuario = $id_usuario;
+$this -> correo = $correo;
+$this -> password_usuario = $password_usuario;
+$this -> estado_usuario = $estado_usuario;
+$this -> conexion = new conexion();
+$this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->correo,$this->password_usuario,$this->estado_usuario);
     }
     
     public function consultarTodos() {
@@ -50,19 +60,7 @@ private $usuarioDAO;
         
         $valoresRetornar = array();
         while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new usuario( $resultado[0],$resultado[1],$resultado[2] ));
-        }
-        $this -> conexion -> cerrar();
-        return $valoresRetornar;
-    }
-
-    public function buscarUsuario($correo, $password){
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> usuarioDAO -> buscarUsuario($correo, $password));
-        
-        $valoresRetornar = array();
-        while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new usuario( $resultado[0],$resultado[1],$resultado[2],$resultado[3],$resultado[4] ));
+            array_push($valoresRetornar, new usuario( $resultado[0],$resultado[1],$resultado[2],$resultado[3] ));
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;
