@@ -28,10 +28,10 @@ private $tipoUsuarioDAO;
     
     public function tipoUsuario( $id_tipoUsuario="",$perfil_tipoUsuario="" ) {
         
-$this -> id_tipoUsuario = $id_tipoUsuario;
-$this -> perfil_tipoUsuario = $perfil_tipoUsuario;
-$this -> conexion = new conexion();
-$this -> tipoUsuarioDAO = new tipoUsuarioDAO($this->id_tipoUsuario,$this->perfil_tipoUsuario);
+        $this -> id_tipoUsuario = $id_tipoUsuario;
+        $this -> perfil_tipoUsuario = $perfil_tipoUsuario;
+        $this -> conexion = new conexion();
+        $this -> tipoUsuarioDAO = new tipoUsuarioDAO($this->id_tipoUsuario,$this->perfil_tipoUsuario);
     }
     
 public function consultartipoUsuario( $id_tipoUsuario ){
