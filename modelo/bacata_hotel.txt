@@ -1,116 +1,126 @@
+drop database bacata;
 CREATE DATABASE bacata;
 USE bacata;
 
-CREATE TABLE categoria_hotel (
-id_categoria_hotel int not null AUTO_INCREMENT UNIQUE,
-nivel_catetegoria_hotel int,
-fecha_categoria date NOT NULL,
-PRIMARY KEY(id_categoria_hotel)
-);
-
-CREATE TABLE hotel (
-id_hotel int not null AUTO_INCREMENT UNIQUE,
-nombre_hotel varchar(50) NOT NULL,
-direccion_hotel varchar(50) NOT NULL,
-telefono_hotel int,
-id_categoria_hotel int NOT NULL,
-PRIMARY KEY(id_hotel),
-FOREIGN KEY (id_categoria_hotel) REFERENCES categoria_hotel(id_categoria_hotel)
+CREATE TABLE tipoUsuario (
+	id_tipoUsuario int not null AUTO_INCREMENT UNIQUE,
+	perfil_tipoUsuario varchar(50),
+	PRIMARY KEY(id_tipoUsuario)
 );
 
 CREATE TABLE usuario (
-id_usuario int not null AUTO_INCREMENT UNIQUE,
-correo varchar(50),
-password_usuario varchar(50) NOT NULL,
-estado_usuario boolean NOT NULL,
-PRIMARY KEY(id_usuario)
+	id_usuario int not null AUTO_INCREMENT UNIQUE,
+	correo_usuario varchar(50),
+	password_usuario varchar(50),
+	estado_usuario boolean,
+	id_tipoUsuario int,
+	PRIMARY KEY(id_usuario),
+	FOREIGN KEY (id_tipoUsuario) REFERENCES tipoUsuario(id_tipoUsuario)
 );
 
 CREATE TABLE cliente (
-id_cliente int not null AUTO_INCREMENT UNIQUE,
-nombre_cliente varchar(50) NOT NULL,
-direccion_cliente varchar(50) NOT NULL,
-telefono_cliente int,
-id_usuario int NOT NULL,
-PRIMARY KEY(id_cliente),
-FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+	id_cliente int not null AUTO_INCREMENT UNIQUE,
+	nombre_cliente varchar(50),
+	direccion_cliente varchar(50),
+	telefono_cliente varchar(50),
+	id_usuario int,
+	PRIMARY KEY(id_cliente),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
-CREATE TABLE tipo_habitacion (
-id_tipo_habitacion int not null AUTO_INCREMENT UNIQUE,
-tipoHabitacion varchar(50),
-categoria varchar(50) NOT NULL,
-PRIMARY KEY(id_tipo_habitacion)
+CREATE TABLE categoriaHotel (
+	id_categoriaHotel int not null AUTO_INCREMENT UNIQUE,
+	nivel_categoriaHotel int,
+	fecha_categoriaHotel date,
+	PRIMARY KEY(id_categoriaHotel)
+);
+
+CREATE TABLE hotel (
+	id_hotel int not null AUTO_INCREMENT UNIQUE,
+	nombre_hotel varchar(50),
+	direccion_hotel varchar(50),
+	telefono_hotel varchar(50),
+	id_categoriaHotel int,
+	PRIMARY KEY(id_hotel),
+	FOREIGN KEY (id_categoriaHotel) REFERENCES categoriaHotel(id_categoriaHotel)
+);
+
+CREATE TABLE tipoHabitacion (
+	id_tipoHabitacion int not null AUTO_INCREMENT UNIQUE,
+	categoria_tipoHabitacion int,
+	PRIMARY KEY(id_tipoHabitacion)
 );
 
 CREATE TABLE habitacion (
-id_habitacion int not null AUTO_INCREMENT UNIQUE,
-numero_camas_habitacion int NOT NULL,
-numero_baños int NOT NULL,
-estado_habitacion boolean,
-precio_habitacion int NOT NULL,
-id_tipo_habitacion int,
-PRIMARY KEY(id_habitacion),
-FOREIGN KEY (id_tipo_habitacion) REFERENCES tipo_habitacion(id_tipo_habitacion)
+	id_habitacion int not null UNIQUE,
+	camas_habitacion int,
+	bath_habitacion int,
+	estado_habitacion int,
+	precio_habitacion int,
+	id_tipoHabitacion int,
+	PRIMARY KEY(id_habitacion),
+	FOREIGN KEY (id_tipoHabitacion) REFERENCES tipoHabitacion(id_tipoHabitacion)
 );
 
 CREATE TABLE reserva (
-id_reserva int not null AUTO_INCREMENT UNIQUE,
-id_usuario int NOT NULL,
-id_hotel int NOT NULL,
-fecha_reserva date,
-fecha_inicio date,
-fecha_final  date,
-PRIMARY KEY(id_reserva),
-FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel)
-);
-
-CREATE TABLE reserva_habitacion (
-id_reserva_habitacion int not null AUTO_INCREMENT UNIQUE,
-id_habitacion int not null,
-id_reserva int NOT NULL,
-cant_reserva_habitacion int NOT NULL,
-precio_reserva_habitacion int NOT NULL,
-PRIMARY KEY(id_habitacion, id_reserva_habitacion, id_reserva),
-FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
-FOREIGN KEY (id_habitacion) REFERENCES habitacion(id_habitacion)
+	id_reserva int not null AUTO_INCREMENT UNIQUE,
+	fecha_reserva date,
+	fechaInicio_reserva date,
+	fechaFinal_reserva date,
+	Vhabitaciones_reserva int,
+	Vservicios_reserva int,
+	id_usuario int,
+	id_hotel int,
+	PRIMARY KEY(id_reserva),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel)
 );
 
 CREATE TABLE servicio (
-id_servicio int not null AUTO_INCREMENT UNIQUE,
-nombre_servicio varchar(50) NOT NULL,
-precio_servicio int NOT NULL,
-PRIMARY KEY(id_servicio)
+	id_servicio int not null AUTO_INCREMENT UNIQUE,
+	nombre_servicio varchar(50),
+	precio_servicio int,
+	PRIMARY KEY(id_servicio)
 );
 
-CREATE TABLE servicio_reserva (
-id_servicio_reserva int not null AUTO_INCREMENT UNIQUE,
-id_reserva int NOT NULL,
-id_servicio int NOT NULL,
-precio_servicio_reserva int NOT NULL,
-PRIMARY KEY(id_reserva, id_servicio_reserva, id_servicio),
-FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
-FOREIGN KEY (id_servicio) REFERENCES servicio(id_servicio)
+CREATE TABLE servicioReserva (
+	id_servicioReserva int not null AUTO_INCREMENT UNIQUE,
+	precio_servicioReserva int,
+	id_servicio int,
+	id_reserva int,
+	PRIMARY KEY(id_servicioReserva, id_servicio, id_reserva),
+	FOREIGN KEY (id_servicio) REFERENCES servicio(id_servicio),
+	FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva)
 );
 
-CREATE TABLE huesped (
-id_huesped int not null AUTO_INCREMENT UNIQUE,
-id_reserva int NOT NULL,
-nombre_huesped varchar(50) NOT NULL,
-apellido_huesped varchar(50) NOT NULL,
-PRIMARY KEY(id_huesped, id_reserva),
-FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva)
+CREATE TABLE habitacionReserva (
+	id_habitacionReserva int not null AUTO_INCREMENT UNIQUE,
+	NhabitacioneS_habitacionReserva int,
+	valor_habitacionReserva int,
+	id_reserva int,
+	id_habitacion int,
+	PRIMARY KEY(id_habitacionReserva, id_habitacion, id_reserva),
+	FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
+	FOREIGN KEY (id_habitacion) REFERENCES habitacion(id_habitacion)
 );
 
 CREATE TABLE factura (
-id_factura int not null AUTO_INCREMENT UNIQUE,
-id_reserva int NOT NULL,
-id_usuario int NOT NULL,
-fecha_pago date,
-precio_total int,
-servicios_total int,
-PRIMARY KEY(id_factura, id_reserva, id_usuario),
-FOREIGN KEY (id_usuario) REFERENCES reserva(id_usuario),
-FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva)
+	id_factura int not null AUTO_INCREMENT UNIQUE,
+	fechaPago_factura int,
+	Vtotal_factura int,
+	id_usuario int,
+	id_reserva int,
+	PRIMARY KEY(id_factura),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva)
+);
+
+CREATE TABLE huesped (
+	id_huesped int not null AUTO_INCREMENT UNIQUE,
+	nomre_huesped varchar(50),
+	id_reserva int,
+	id_usuario int,
+	PRIMARY KEY(id_huesped, id_reserva, id_usuario),
+	FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
