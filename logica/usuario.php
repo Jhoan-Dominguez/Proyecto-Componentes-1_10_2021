@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/usuarioDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/usuarioDAO.php";
 
 class usuario {
     
@@ -64,7 +64,7 @@ private $usuarioDAO;
         $this -> usuarioDAO = new usuarioDAO($this->id_usuario,$this->correo_usuario,$this->password_usuario,$this->estado_usuario,$this->id_tipoUsuario);
     }
     
-public function consultarusuario( $id_usuario ){
+    public function consultarusuario( $id_usuario ){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> usuarioDAO -> consultarusuario( $id_usuario ) );
         
@@ -74,7 +74,49 @@ public function consultarusuario( $id_usuario ){
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;
-}    
+    }    
+
+    public function buscarCliente($id_usuario){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> buscarCliente($id_usuario));
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, array(
+                "nombre_cliente" => $resultado[0],
+                "direccion_cliente" => $resultado[1],
+                "telefono_cliente" => $resultado[2],
+                "correo" => $resultado[3],
+                "password_usuario" => $resultado[4],
+            ) );
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar;
+    }
+
+    public function updateInformation($id_usuario, $correo, $password){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> updateInformation($id_usuario, $correo, $password) );
+        $this -> conexion -> cerrar();
+    }
+
+    public function restablecerPassword($id_usuario, $correo, $newPass){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> restablecerPassword($id_usuario, $correo, $newPass));
+        $this -> conexion -> cerrar();
+    }
+
+    public function iniciarSesion($correo, $password){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> iniciarSesion($correo, $password));
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, new usuario( $resultado[0],$resultado[1],$resultado[2],$resultado[3],$resultado[4] ));
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar;
+    }
     
     public function consultarTodos() {
         $this -> conexion -> abrir();

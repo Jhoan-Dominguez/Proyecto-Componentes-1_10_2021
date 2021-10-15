@@ -14,10 +14,10 @@ if(isset($_POST['id_usuario']) && isset($_POST['nombre']) && isset($_POST['direc
         $password = $_POST['password'];
 
         $usuario = new usuario();
-        $usuario = $usuario -> updateInformation($id_usuario, $correo, $password);
+        $usuario = $usuario -> updateInformation(intval($id_usuario), $correo, $password);
 
         $cliente = new cliente();
-        $cliente = $cliente -> updateInformation($id_usuario, $nombre, $direccion, $telefono);
+        $cliente = $cliente -> updateInformation(intval($id_usuario), $nombre, $direccion, $telefono);
 
         echo "Successful Update";
     

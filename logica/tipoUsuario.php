@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/tipoUsuarioDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/tipoUsuarioDAO.php";
 
 class tipoUsuario {
     

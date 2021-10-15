@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/servicioDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/servicioDAO.php";
 
 class servicio {
     

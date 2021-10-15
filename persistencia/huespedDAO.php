@@ -19,8 +19,8 @@ return "
 insert into huesped (nombre_huesped,id_reserva,id_usuario)
 values (
  '" .$this -> nombre_huesped. "', 
- '" .$this -> id_reserva. "', 
- '" .$this -> id_usuario. "'
+ " .$this -> id_reserva. ", 
+ " .$this -> id_usuario. "
 
 )";
 }

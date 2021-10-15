@@ -47,7 +47,7 @@ CREATE TABLE hotel (
 
 CREATE TABLE tipoHabitacion (
 	id_tipoHabitacion int not null AUTO_INCREMENT UNIQUE,
-	categoria_tipoHabitacion int,
+	categoria_tipoHabitacion varchar(50),
 	PRIMARY KEY(id_tipoHabitacion)
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE habitacion (
 	id_habitacion int not null UNIQUE,
 	camas_habitacion int,
 	bath_habitacion int,
-	estado_habitacion int,
+	estado_habitacion boolean,
 	precio_habitacion int,
 	id_tipoHabitacion int,
 	PRIMARY KEY(id_habitacion),
@@ -85,7 +85,6 @@ CREATE TABLE servicio (
 
 CREATE TABLE servicioReserva (
 	id_servicioReserva int not null AUTO_INCREMENT UNIQUE,
-	precio_servicioReserva int,
 	id_servicio int,
 	id_reserva int,
 	PRIMARY KEY(id_servicioReserva, id_servicio, id_reserva),
@@ -95,8 +94,6 @@ CREATE TABLE servicioReserva (
 
 CREATE TABLE habitacionReserva (
 	id_habitacionReserva int not null AUTO_INCREMENT UNIQUE,
-	NhabitacioneS_habitacionReserva int,
-	valor_habitacionReserva int,
 	id_reserva int,
 	id_habitacion int,
 	PRIMARY KEY(id_habitacionReserva, id_habitacion, id_reserva),
@@ -106,7 +103,7 @@ CREATE TABLE habitacionReserva (
 
 CREATE TABLE factura (
 	id_factura int not null AUTO_INCREMENT UNIQUE,
-	fechaPago_factura int,
+	fechaPago_factura date,
 	Vtotal_factura int,
 	id_usuario int,
 	id_reserva int,
@@ -117,7 +114,7 @@ CREATE TABLE factura (
 
 CREATE TABLE huesped (
 	id_huesped int not null AUTO_INCREMENT UNIQUE,
-	nomre_huesped varchar(50),
+	nombre_huesped varchar(50),
 	id_reserva int,
 	id_usuario int,
 	PRIMARY KEY(id_huesped, id_reserva, id_usuario),

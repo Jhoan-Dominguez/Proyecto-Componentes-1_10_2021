@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/reservaDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/reservaDAO.php";
 
 class reserva {
     

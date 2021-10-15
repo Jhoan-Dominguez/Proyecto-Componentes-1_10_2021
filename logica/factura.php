@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/facturaDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/facturaDAO.php";
 
 class factura {
     

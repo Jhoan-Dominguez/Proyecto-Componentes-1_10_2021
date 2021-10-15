@@ -8,9 +8,9 @@ if(isset($_GET['id'])){
     $id_usuario = $_GET['id'];
 
     $usuario = new usuario();
-    $usuario = $usuario->datosUsuarioCliente($id_usuario);
-
-    echo json_encode($usuario);
+    $datos = $usuario->buscarCliente(intval($id_usuario));
+    
+    echo json_encode($datos[0]);
 }else{
     echo "vaciooooo";
 }

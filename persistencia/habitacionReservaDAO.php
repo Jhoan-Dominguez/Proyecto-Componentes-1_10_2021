@@ -20,10 +20,10 @@ public function crear() {
 return "
 insert into habitacionReserva (NhabitacioneS_habitacionReserva,valor_habitacionReserva,id_reserva,id_habitacion)
 values (
- '" .$this -> NhabitacioneS_habitacionReserva. "', 
- '" .$this -> valor_habitacionReserva. "', 
- '" .$this -> id_reserva. "', 
- '" .$this -> id_habitacion. "'
+ " .$this -> NhabitacioneS_habitacionReserva. ", 
+ " .$this -> valor_habitacionReserva. ", 
+ " .$this -> id_reserva. ", 
+ " .$this -> id_habitacion. "
 
 )";
 }

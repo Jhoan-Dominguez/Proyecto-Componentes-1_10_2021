@@ -22,11 +22,11 @@ public function crear() {
 return "
 insert into habitacion (camas_habitacion,bath_habitacion,estado_habitacion,precio_habitacion,id_tipoHabitacion)
 values (
- '" .$this -> camas_habitacion. "', 
- '" .$this -> bath_habitacion. "', 
- '" .$this -> estado_habitacion. "', 
- '" .$this -> precio_habitacion. "', 
- '" .$this -> id_tipoHabitacion. "'
+ " .$this -> camas_habitacion. ", 
+ " .$this -> bath_habitacion. ", 
+ " .$this -> estado_habitacion. ", 
+ " .$this -> precio_habitacion. ", 
+ " .$this -> id_tipoHabitacion. "
 
 )";
 }

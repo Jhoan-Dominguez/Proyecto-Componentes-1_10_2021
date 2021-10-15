@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/huespedDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/huespedDAO.php";
 
 class huesped {
     

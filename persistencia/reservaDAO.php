@@ -29,10 +29,10 @@ values (
  '" .$this -> fecha_reserva. "', 
  '" .$this -> fechaInicio_reserva. "', 
  '" .$this -> fechaFinal_reserva. "', 
- '" .$this -> Vhabitaciones_reserva. "', 
- '" .$this -> Vservicios_reserva. "', 
- '" .$this -> id_usuario. "', 
- '" .$this -> id_hotel. "'
+ " .$this -> Vhabitaciones_reserva. ", 
+ " .$this -> Vservicios_reserva. ", 
+ " .$this -> id_usuario. ", 
+ " .$this -> id_hotel. "
 
 )";
 }

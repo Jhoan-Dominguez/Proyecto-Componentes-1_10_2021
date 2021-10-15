@@ -21,9 +21,9 @@ return "
 insert into factura (fechaPago_factura,Vtotal_factura,id_usuario,id_reserva)
 values (
  '" .$this -> fechaPago_factura. "', 
- '" .$this -> Vtotal_factura. "', 
- '" .$this -> id_usuario. "', 
- '" .$this -> id_reserva. "'
+ " .$this -> Vtotal_factura. ", 
+ " .$this -> id_usuario. ", 
+ " .$this -> id_reserva. "
 
 )";
 }

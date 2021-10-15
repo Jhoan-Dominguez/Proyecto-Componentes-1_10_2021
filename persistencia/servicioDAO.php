@@ -17,7 +17,7 @@ return "
 insert into servicio (nombre_servicio,precio_servicio)
 values (
  '" .$this -> nombre_servicio. "', 
- '" .$this -> precio_servicio. "'
+ " .$this -> precio_servicio. "
 
 )";
 }

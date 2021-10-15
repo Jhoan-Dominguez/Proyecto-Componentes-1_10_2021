@@ -27,6 +27,13 @@ values (
 
 )";
 }
+
+public function updateInformation($id_usuario, $nombre_cliente, $direccion_cliente,$telefono_cliente){
+    return "update cliente set cliente.nombre_cliente = '".$nombre_cliente."', 
+            cliente.direccion_cliente = '".$direccion_cliente."',
+            cliente.telefono_cliente = ".$telefono_cliente."
+            where cliente.id_usuario = ".$id_usuario;
+}
     
 public function consultarcliente( $id_cliente ){
     return "select * from cliente where id_cliente = ". $id_cliente;

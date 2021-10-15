@@ -19,9 +19,9 @@ public function crear() {
 return "
     insert into servicioReserva (precio_servicioReserva,id_servicio,id_reserva)
     values (
-    '" .$this -> precio_servicioReserva. "', 
-    '" .$this -> id_servicio. "', 
-    '" .$this -> id_reserva. "'
+    " .$this -> precio_servicioReserva. ", 
+    " .$this -> id_servicio. ", 
+    " .$this -> id_reserva. "
 
     )";
 }

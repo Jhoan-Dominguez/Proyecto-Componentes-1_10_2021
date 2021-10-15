@@ -24,7 +24,7 @@ values (
  '" .$this -> nombre_hotel. "', 
  '" .$this -> direccion_hotel. "', 
  '" .$this -> telefono_hotel. "', 
- '" .$this -> id_categoriaHotel. "'
+ " .$this -> id_categoriaHotel. "
 
 )";
 }

@@ -1,6 +1,6 @@
 <?php
-require_once "persistencia/conexion.php";
-require_once "persistencia/habitacionReservaDAO.php";
+require_once "../persistencia/conexion.php";
+require_once "../persistencia/habitacionReservaDAO.php";
 
 class habitacionReserva {
     
