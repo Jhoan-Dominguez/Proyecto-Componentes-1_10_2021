@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 usuario=TxtCorreo.getText().toString();
                 password=TxtPassword.getText().toString();
                 if(!usuario.isEmpty() && !password.isEmpty()){
-                    iniciarSesion("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/inicioSesion.php");
+                    iniciarSesion("http://192.168.0.6/aplicaciones/Componentes-Proyecto/Presentacion/inicioSesion.php");
                 }
                 else{
                     Toast.makeText(MainActivity.this, "no se permiten campos vacios", Toast.LENGTH_SHORT).show();
@@ -60,19 +60,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BtnIniciarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usuario=TxtCorreo.getText().toString();
-                password=TxtPassword.getText().toString();
-                if(!usuario.isEmpty() && !password.isEmpty()){
-                    iniciarSesion("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/inicioSesion.php");
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "no se permiten campos vacios", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         btnRecuperarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,17 +93,16 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "No existe ese registro.", Toast.LENGTH_SHORT).show();
                         }else {
                             guardarPreferencias();
-                            if(response.equals("2")){
-                                Toast.makeText(MainActivity.this, "Inicio Exitoso", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(MainActivity.this, viewPrincipalAdmin.class);
-                                startActivity(intent);
-                            }else{
-                                Toast.makeText(MainActivity.this, "Inicio Exitoso", Toast.LENGTH_LONG).show();
+//                            if(response.equals("1")){
+//                                Toast.makeText(MainActivity.this, "Inicio Exitoso "+response, Toast.LENGTH_LONG).show();
+//                                Intent intent = new Intent(MainActivity.this, viewPrincipalAdmin.class);
+//                                startActivity(intent);
+//                            }else{
+                                Toast.makeText(MainActivity.this, "Inicio Exitoso "+response, Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(MainActivity.this, viewPrincipalCliente.class);
                                 intent.putExtra("Id", response);
                                 startActivity(intent);
-                            }
-
+//                            }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -140,38 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         requestQueue.add(stringRequest);
-    }
-
-    public void buscarUsuario(String URL){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    System.out.println("1");
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        String Name = jsonObject.getString("correo");
-                        int Id = Integer.parseInt(jsonObject.getString("id_usuario"));
-
-                        if(Id == 2){
-                            Intent intent = new Intent(MainActivity.this, viewPrincipalCliente.class);
-                            intent.putExtra("Id", Id);
-                            intent.putExtra("Name", Name);
-                            startActivity(intent);
-                        }
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
     }
 
     private  void guardarPreferencias(){

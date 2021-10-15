@@ -32,6 +32,7 @@ public class viewPrincipalCliente extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(viewPrincipalCliente.this, hacerReserva.class);
+                intent.putExtra("Id", Id);
                 startActivity(intent);
             }
         });
@@ -40,6 +41,7 @@ public class viewPrincipalCliente extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(viewPrincipalCliente.this, historial.class);
+                intent.putExtra("Id", Id);
                 startActivity(intent);
             }
         });

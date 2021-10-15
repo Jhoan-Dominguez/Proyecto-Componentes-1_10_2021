@@ -53,7 +53,7 @@ public class perfil extends AppCompatActivity {
 
         btnActualizarDatos = (Button) findViewById(R.id.btnActualizarDatos);
 
-        TraerInfo("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/obtenerPerfil.php?");
+        TraerInfo("http://192.168.0.6/aplicaciones/Componentes-Proyecto/Presentacion/obtenerPerfil.php?");
 
         btnActualizarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class perfil extends AppCompatActivity {
                 password = TxtCambiarPassword.getText().toString();
 
                 if (!id_usuario.isEmpty() && !nombre.isEmpty() && !direccion.isEmpty() && !telefono.isEmpty() && !correo.isEmpty() && !password.isEmpty()) {
-                    actualizarPerfil("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/actualizarPerfil.php");
+                    actualizarPerfil("http://192.168.0.6/aplicaciones/Componentes-Proyecto/Presentacion/actualizarPerfil.php");
                 } else {
                     Toast.makeText(perfil.this, "no se permiten campos vacios", Toast.LENGTH_SHORT).show();
                 }
@@ -140,7 +140,7 @@ public class perfil extends AppCompatActivity {
                             TxtCambiarPassword.setText(password);
 
                         } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), e.toString() + "asd", Toast.LENGTH_LONG).show();
                         }
                         Toast.makeText(getApplicationContext(), "Data", Toast.LENGTH_LONG).show();
                     }
@@ -148,7 +148,7 @@ public class perfil extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.toString()+"este", Toast.LENGTH_LONG).show();
                     }
                 }
         );

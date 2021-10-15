@@ -44,7 +44,7 @@ public class recuperarPassword extends AppCompatActivity {
                 correo=TxtRecuperarCorreo.getText().toString();
 
                 if(!id.isEmpty() && !newPass.isEmpty() && !correo.isEmpty()){
-                    recuperarPassword("http://192.168.0.5/aplicaciones/Componentes-Proyecto/Presentacion/recuperarPassword.php");
+                    recuperarPassword("http://192.168.0.6/aplicaciones/Componentes-Proyecto/Presentacion/recuperarPassword.php");
                 }
                 else{
                     Toast.makeText(recuperarPassword.this, "no se permiten campos vacios", Toast.LENGTH_SHORT).show();
