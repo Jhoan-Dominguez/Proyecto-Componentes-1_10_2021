@@ -36,6 +36,11 @@ values (
 
 )";
 }
+
+public function buscarReservas($id_usuario){
+    return "
+        select * from reserva where id_usuario = ".$id_usuario;
+}
     
 public function consultarreserva( $id_reserva ){
     return "select * from reserva where id_reserva = ". $id_reserva;

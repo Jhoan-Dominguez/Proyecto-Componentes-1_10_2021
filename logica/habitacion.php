@@ -73,6 +73,24 @@ private $habitacionDAO;
         $this -> conexion = new conexion();
         $this -> habitacionDAO = new habitacionDAO($this->id_habitacion,$this->camas_habitacion,$this->bath_habitacion,$this->estado_habitacion,$this->precio_habitacion,$this->id_tipoHabitacion);
     }
+
+    public function consultarTodos() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> habitacionDAO -> consultarTodos());
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, array( 
+                "id_habitacion" => $resultado[0],
+                "camas_habitacion" => $resultado[1],
+                "bath_habitacion" => $resultado[2],
+                "estado_habitacion" => $resultado[3],
+                "precio_habitacion" => $resultado[4],
+                "id_tipoHabitacion" => $resultado[5] ));
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar;
+    }
     
 public function consultarhabitacion( $id_habitacion ){
         $this -> conexion -> abrir();
@@ -85,18 +103,6 @@ public function consultarhabitacion( $id_habitacion ){
         $this -> conexion -> cerrar();
         return $valoresRetornar;
 }    
-    
-    public function consultarTodos() {
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> habitacionDAO -> consultarTodos());
-        
-        $valoresRetornar = array();
-        while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new habitacion( $resultado[0],$resultado[1],$resultado[2],$resultado[3],$resultado[4],$resultado[5] ));
-        }
-        $this -> conexion -> cerrar();
-        return $valoresRetornar;
-    }
     
     public function consultarTotalFilas() {
         $this -> conexion -> abrir();

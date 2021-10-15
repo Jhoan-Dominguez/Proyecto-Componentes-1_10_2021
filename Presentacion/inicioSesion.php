@@ -14,7 +14,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
     $usuario = $usuario->iniciarSesion($correo, $password);
 
     if($usuario){
-        $id_usuario = $usuario[0] -> getid_tipoUsuario();
+        $id_usuario = $usuario[0] -> getid_usuario();
         echo $id_usuario;
     }else{
         echo "ERROR 2";

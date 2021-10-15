@@ -93,6 +93,26 @@ private $reservaDAO;
         $this -> conexion = new conexion();
         $this -> reservaDAO = new reservaDAO($this->id_reserva,$this->fecha_reserva,$this->fechaInicio_reserva,$this->fechaFinal_reserva,$this->Vhabitaciones_reserva,$this->Vservicios_reserva,$this->id_usuario,$this->id_hotel);
     }
+
+    public function buscarReservas($id_usuario){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> reservaDAO -> buscarReservas( $id_usuario ) );
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, array(
+                "id_reserva" => $resultado[0],
+                "fecha_reserva" => $resultado[1], 
+                "fechaInicio_reserva" => $resultado[2],
+                "fechaFinal_reserva" => $resultado[3],
+                "Vhabitaciones_reserva" => $resultado[4],
+                "Vservicios_reserva" => $resultado[5],
+                "id_usuario" => $resultado[6], 
+                "id_hotel" => $resultado[7] ) );
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar;
+    }
     
 public function consultarreserva( $id_reserva ){
         $this -> conexion -> abrir();

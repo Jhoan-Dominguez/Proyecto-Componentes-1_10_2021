@@ -43,6 +43,21 @@ private $servicioDAO;
         $this -> conexion = new conexion();
         $this -> servicioDAO = new servicioDAO($this->id_servicio,$this->nombre_servicio,$this->precio_servicio);
     }
+
+    public function consultarTodos() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> servicioDAO -> consultarTodos());
+        
+        $valoresRetornar = array();
+        while( ($resultado = $this -> conexion -> extraer()) != null) {
+            array_push($valoresRetornar, array( 
+                "id_servicio" => $resultado[0],
+                "nombre_servicio" => $resultado[1],
+                "precio_servicio" => $resultado[2] ));
+        }
+        $this -> conexion -> cerrar();
+        return $valoresRetornar;
+    }
     
 public function consultarservicio( $id_servicio ){
         $this -> conexion -> abrir();
@@ -55,18 +70,6 @@ public function consultarservicio( $id_servicio ){
         $this -> conexion -> cerrar();
         return $valoresRetornar;
 }    
-    
-    public function consultarTodos() {
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> servicioDAO -> consultarTodos());
-        
-        $valoresRetornar = array();
-        while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new servicio( $resultado[0],$resultado[1],$resultado[2] ));
-        }
-        $this -> conexion -> cerrar();
-        return $valoresRetornar;
-    }
     
     public function consultarTotalFilas() {
         $this -> conexion -> abrir();

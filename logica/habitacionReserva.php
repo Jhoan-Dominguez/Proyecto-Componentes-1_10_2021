@@ -5,8 +5,6 @@ require_once "../persistencia/habitacionReservaDAO.php";
 class habitacionReserva {
     
 private $id_habitacionReserva;
-private $NhabitacioneS_habitacionReserva;
-private $valor_habitacionReserva;
 private $id_reserva;
 private $id_habitacion;
 private $conexion;
@@ -18,22 +16,6 @@ private $habitacionReservaDAO;
      */
     public function getid_habitacionReserva() {
         return $this -> id_habitacionReserva;
-    }
-    
-
-    /**
-     * @return
-     */
-    public function getNhabitacioneS_habitacionReserva() {
-        return $this -> NhabitacioneS_habitacionReserva;
-    }
-    
-
-    /**
-     * @return
-     */
-    public function getvalor_habitacionReserva() {
-        return $this -> valor_habitacionReserva;
     }
     
 
@@ -53,15 +35,13 @@ private $habitacionReservaDAO;
     }
     
     
-    public function habitacionReserva( $id_habitacionReserva="",$NhabitacioneS_habitacionReserva="",$valor_habitacionReserva="",$id_reserva="",$id_habitacion="" ) {
+    public function habitacionReserva( $id_habitacionReserva="",$id_reserva="",$id_habitacion="" ) {
         
         $this -> id_habitacionReserva = $id_habitacionReserva;
-        $this -> NhabitacioneS_habitacionReserva = $NhabitacioneS_habitacionReserva;
-        $this -> valor_habitacionReserva = $valor_habitacionReserva;
         $this -> id_reserva = $id_reserva;
         $this -> id_habitacion = $id_habitacion;
         $this -> conexion = new conexion();
-        $this -> habitacionReservaDAO = new habitacionReservaDAO($this->id_habitacionReserva,$this->NhabitacioneS_habitacionReserva,$this->valor_habitacionReserva,$this->id_reserva,$this->id_habitacion);
+        $this -> habitacionReservaDAO = new habitacionReservaDAO($this->id_habitacionReserva,$this->id_reserva,$this->id_habitacion);
     }
     
 public function consultarhabitacionReserva( $id_habitacionReserva ){
@@ -70,7 +50,7 @@ public function consultarhabitacionReserva( $id_habitacionReserva ){
         
         $valoresRetornar = array();
         while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new habitacionReserva( $resultado[0],$resultado[1],$resultado[2],$resultado[3],$resultado[4] ));
+            array_push($valoresRetornar, new habitacionReserva( $resultado[0],$resultado[1],$resultado[2] ));
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;
@@ -82,7 +62,7 @@ public function consultarhabitacionReserva( $id_habitacionReserva ){
         
         $valoresRetornar = array();
         while( ($resultado = $this -> conexion -> extraer()) != null) {
-            array_push($valoresRetornar, new habitacionReserva( $resultado[0],$resultado[1],$resultado[2],$resultado[3],$resultado[4] ));
+            array_push($valoresRetornar, new habitacionReserva( $resultado[0],$resultado[1],$resultado[2] ));
         }
         $this -> conexion -> cerrar();
         return $valoresRetornar;
@@ -104,4 +84,3 @@ public function consultarhabitacionReserva( $id_habitacionReserva ){
     
 }
 ?>
-
